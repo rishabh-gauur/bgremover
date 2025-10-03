@@ -1,0 +1,30 @@
+[build]
+  # ❌ Do not run a build command if you don't have a JS frontend.
+  # The Python dependencies (from requirements.txt) will be installed automatically.
+  # If you must have a command, set it to something harmless:
+  command = ":" 
+
+  # The publish directory must point to the folder containing your static HTML. 
+  # If you are serving HTML directly from FastAPI, this can be the repository root.
+  # Set it to the root of your repo, or the path where a static index.html lives.
+  publish = "." 
+
+# 1. Define the location of your serverless functions (where api.py is)
+[functions]
+  directory = "netlify/functions"
+  # You might need to specify the Python runtime version
+  # python_functions_runtime = "python3.10"
+
+# 2. Add a rewrite rule to route all API calls to your FastAPI function
+# We use a custom path like /.netlify/functions/api to hit your api.py script
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api" 
+  status = 200
+  
+# 3. Add a redirect for the root path (/) if you want the HTML to be served by the function
+# This rule routes the initial browser request to your FastAPI's index route.
+[[redirects]]
+  from = "/"
+  to = "/.netlify/functions/api" 
+  status = 200

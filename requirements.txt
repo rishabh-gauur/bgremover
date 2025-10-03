@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+rembg[cpu] # Use [cpu] for a potentially smaller/faster deployment
+Pillow
+jinja2
+# You may also need a serverless wrapper like mangum if deployment fails
+# mangum
